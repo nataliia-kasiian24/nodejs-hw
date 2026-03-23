@@ -35,4 +35,4 @@ const noteSchema = new Schema(
   },
 );
 
-export const Note = model('note', noteSchema, 'Students');
+export const Note = model('note', noteSchema);
