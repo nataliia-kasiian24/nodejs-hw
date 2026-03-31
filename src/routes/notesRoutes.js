@@ -10,7 +10,7 @@ import {
 
 const router = express.Router();
 
-router.get('/', celebrate(getAllNotesSchema), notesController.getNotes);
+router.get('/', celebrate(getAllNotesSchema), notesController.getAllNotes);
 
 router.get('/:noteId', celebrate(noteIdSchema), notesController.getNoteById);
 

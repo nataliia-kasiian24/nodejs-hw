@@ -7,8 +7,11 @@ import { errors } from 'celebrate';
 
 import notesRouter from './routes/notesRoutes.js';
 import { errorHandler } from './middleware/errorHandler.js';
+import { logger } from './middleware/logger.js';
+import { notFoundHandler } from './middleware/notFoundHandler.js';
 
 const app = express();
+app.use(logger);
 
 app.use(
   pino({
@@ -21,7 +24,7 @@ app.use(
 app.use(cors());
 app.use(express.json());
 
-app.use('/notes', notesRouter);
+app.use(notesRouter);
 
 app.get('/test-error', (req, res) => {
   throw new Error('Simulated server error');
@@ -32,6 +35,8 @@ app.use((req, res, next) => {
     message: 'Route not found',
   });
 });
+
+app.use(notFoundHandler);
 
 app.use(errors());
 
