@@ -18,6 +18,10 @@ export const getAllNotesSchema = {
   }),
 };
 
+export const objectIdSchema = Joi.object({
+  noteId: Joi.string().custom(objectIdValidation).required(),
+});
+
 export const noteIdSchema = {
   [Segments.PARAMS]: Joi.object().keys({
     noteId: Joi.string().custom(objectIdValidation).required(),

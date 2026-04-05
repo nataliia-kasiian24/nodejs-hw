@@ -2,12 +2,14 @@ import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import { errors } from 'celebrate';
+import cookieParser from 'cookie-parser';
 
 import notesRouter from './routes/notesRoutes.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { logger } from './middleware/logger.js';
 import { notFoundHandler } from './middleware/notFoundHandler.js';
 import { connectMongoDB } from './db/connectMongoDB.js';
+import authRouter from './routes/authRoutes.js';
 
 const app = express();
 
@@ -18,6 +20,9 @@ const startServer = async () => {
     app.use(logger);
     app.use(cors());
     app.use(express.json());
+    app.use(cookieParser());
+
+    app.use('/auth', authRouter);
 
     app.use(notesRouter);
 
