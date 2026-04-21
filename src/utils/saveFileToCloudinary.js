@@ -11,14 +11,19 @@ cloudinary.config({
 export const saveFileToCloudinary = (buffer) => {
   return new Promise((resolve, reject) => {
     const uploadStream = cloudinary.uploader.upload_stream(
-      { folder: 'avatars' },
+      {
+        folder: 'avatars',
+        resource_type: 'image',
+        overwrite: true,
+        unique_filename: true,
+        use_filename: false,
+      },
       (error, result) => {
         if (error) reject(error);
         else resolve(result);
-      }
+      },
     );
 
-    // Створюємо стрім із буфера та "вливаємо" його в Cloudinary
     const stream = new Readable();
     stream.push(buffer);
     stream.push(null);
