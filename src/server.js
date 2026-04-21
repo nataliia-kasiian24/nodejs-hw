@@ -24,14 +24,14 @@ const startServer = async () => {
     app.use(express.json());
     app.use(cookieParser());
 
-    app.use('/auth', authRouter);
-    app.use('/users', userRoutes);
+    app.use(authRouter);
+    app.use(userRoutes);
     app.use(notesRouter);
 
     app.use(notFoundHandler);
-  
+
     app.use(errors());
-    
+
     app.use(errorHandler);
 
     const PORT = Number(process.env.PORT) || 3000;
